@@ -20,7 +20,8 @@ export const GifsApp = () => {
 
     setPreviousTerms([query, ...previousTerms].splice(0, 7));
 
-    await getGifsByQuery(query);
+    const gifs = await getGifsByQuery(query);
+    console.log({ gifs });
   };
   return (
     <>
