@@ -11,12 +11,16 @@ export const GifsApp = () => {
     console.log({ term });
   };
 
-  const handleSearch = (query: string) => {
-    console.log({ query });
+  const handleSearch = (query: string = "") => {
+    query = query.trim().toLowerCase();
+    if (query.length === 0) return; //validar que no este vacio
+
+    if (previousTerms.includes(query)) return;
+
+    setPreviousTerms([query, ...previousTerms].splice(0, 7));
   };
   return (
     <>
-      {" "}
       {/*Header*/}
       <CustomHeader
         title="Buscador de Gifs"
