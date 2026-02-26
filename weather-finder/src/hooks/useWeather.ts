@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { geocodeCity, fetchWeather } from '../services/api';
 import type { WeatherData, Status } from '../types/weather';
+
+const LAST_CITY_KEY = 'weather-finder:last-city';
 
 interface WeatherState {
   status: Status;
@@ -9,13 +11,15 @@ interface WeatherState {
 }
 
 export function useWeather() {
+  const [savedCity] = useState<string>(() => localStorage.getItem(LAST_CITY_KEY) ?? '');
+
   const [state, setState] = useState<WeatherState>({
     status: 'idle',
     data: null,
     error: null,
   });
 
-  async function search(city: string) {
+  const search = useCallback(async (city: string) => {
     const trimmed = city.trim();
     if (!trimmed) return;
 
@@ -24,6 +28,8 @@ export function useWeather() {
     try {
       const { name, latitude, longitude, country } = await geocodeCity(trimmed);
       const { current, daily } = await fetchWeather(latitude, longitude);
+
+      localStorage.setItem(LAST_CITY_KEY, trimmed);
 
       setState({
         status: 'success',
@@ -37,7 +43,13 @@ export function useWeather() {
         error: err instanceof Error ? err.message : 'Ocurrió un error inesperado.',
       });
     }
-  }
+  }, []);
 
-  return { ...state, search };
+  // Auto-search the last city on mount
+  useEffect(() => {
+    const lastCity = localStorage.getItem(LAST_CITY_KEY);
+    if (lastCity) search(lastCity);
+  }, [search]);
+
+  return { ...state, search, savedCity };
 }
