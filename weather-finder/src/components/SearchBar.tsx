@@ -3,10 +3,11 @@ import { useState, type FormEvent } from 'react';
 interface Props {
   onSearch: (city: string) => void;
   isLoading: boolean;
+  initialValue?: string;
 }
 
-export function SearchBar({ onSearch, isLoading }: Props) {
-  const [value, setValue] = useState('');
+export function SearchBar({ onSearch, isLoading, initialValue = '' }: Props) {
+  const [value, setValue] = useState(initialValue);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();

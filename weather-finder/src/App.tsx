@@ -7,7 +7,7 @@ import { ErrorMessage } from './components/ErrorMessage';
 import './App.css';
 
 function App() {
-  const { status, data, error, search } = useWeather();
+  const { status, data, error, search, savedCity } = useWeather();
 
   return (
     <div className="app">
@@ -19,7 +19,11 @@ function App() {
       </header>
 
       <main className="app-main">
-        <SearchBar onSearch={search} isLoading={status === 'loading'} />
+        <SearchBar
+          onSearch={search}
+          isLoading={status === 'loading'}
+          initialValue={savedCity}
+        />
 
         <div className="app-content">
           {status === 'idle' && (
