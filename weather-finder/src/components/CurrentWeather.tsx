@@ -1,5 +1,5 @@
-import type { WeatherData } from '../types/weather';
-import { getWeatherInfo } from '../utils/weatherCodes';
+import type { WeatherData } from "../types/weather";
+import { getWeatherInfo } from "../utils/weatherCodes";
 
 interface Props {
   data: WeatherData;
@@ -28,7 +28,9 @@ export function CurrentWeather({ data }: Props) {
 
       <div className="weather-details">
         <div className="detail-item">
-          <span className="detail-icon" aria-hidden="true">💨</span>
+          <span className="detail-icon" aria-hidden="true">
+            💨
+          </span>
           <span className="detail-label">Viento</span>
           <span className="detail-value">{current.wind_speed_10m} km/h</span>
         </div>

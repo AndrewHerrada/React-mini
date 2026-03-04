@@ -27,4 +27,4 @@ export interface WeatherData {
   daily: DailyForecastData;
 }
 
-export type Status = 'idle' | 'loading' | 'success' | 'error';
+export type Status = "idle" | "loading" | "success" | "error";

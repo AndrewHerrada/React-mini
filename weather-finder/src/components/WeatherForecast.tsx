@@ -1,5 +1,5 @@
-import type { DailyForecastData } from '../types/weather';
-import { getWeatherInfo } from '../utils/weatherCodes';
+import type { DailyForecastData } from "../types/weather";
+import { getWeatherInfo } from "../utils/weatherCodes";
 
 interface Props {
   daily: DailyForecastData;
@@ -7,10 +7,10 @@ interface Props {
 
 function formatDay(dateStr: string): string {
   const date = new Date(`${dateStr}T12:00:00`);
-  return date.toLocaleDateString('es-ES', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
+  return date.toLocaleDateString("es-ES", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
   });
 }
 
@@ -23,12 +23,12 @@ export function WeatherForecast({ daily }: Props) {
           const { description, emoji } = getWeatherInfo(daily.weather_code[i]);
           const isToday = i === 0;
           return (
-            <div
+            <article
               key={date}
-              className={`forecast-card${isToday ? ' forecast-card--today' : ''}`}
-              aria-label={`${isToday ? 'Hoy' : formatDay(date)}: ${description}, máx ${Math.round(daily.temperature_2m_max[i])}°, mín ${Math.round(daily.temperature_2m_min[i])}°`}
+              className={`forecast-card${isToday ? " forecast-card--today" : ""}`}
+              aria-label={`${isToday ? "Hoy" : formatDay(date)}: ${description}, máx ${Math.round(daily.temperature_2m_max[i])}°, mín ${Math.round(daily.temperature_2m_min[i])}°`}
             >
-              <span className="forecast-day">{isToday ? 'Hoy' : formatDay(date)}</span>
+              <span className="forecast-day">{isToday ? "Hoy" : formatDay(date)}</span>
               <span className="forecast-emoji" role="img" aria-hidden="true">
                 {emoji}
               </span>
@@ -38,7 +38,7 @@ export function WeatherForecast({ daily }: Props) {
                 <span className="temp-separator">/</span>
                 <span className="temp-min">{Math.round(daily.temperature_2m_min[i])}°</span>
               </div>
-            </div>
+            </article>
           );
         })}
       </div>

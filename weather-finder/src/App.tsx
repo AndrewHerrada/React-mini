@@ -1,10 +1,10 @@
-import { useWeather } from './hooks/useWeather';
-import { SearchBar } from './components/SearchBar';
-import { CurrentWeather } from './components/CurrentWeather';
-import { WeatherForecast } from './components/WeatherForecast';
-import { LoadingSpinner } from './components/LoadingSpinner';
-import { ErrorMessage } from './components/ErrorMessage';
-import './App.css';
+import { CurrentWeather } from "./components/CurrentWeather";
+import { ErrorMessage } from "./components/ErrorMessage";
+import { LoadingSpinner } from "./components/LoadingSpinner";
+import { SearchBar } from "./components/SearchBar";
+import { WeatherForecast } from "./components/WeatherForecast";
+import { useWeather } from "./hooks/useWeather";
+import "./App.css";
 
 function App() {
   const { status, data, error, search, savedCity } = useWeather();
@@ -19,25 +19,23 @@ function App() {
       </header>
 
       <main className="app-main">
-        <SearchBar
-          onSearch={search}
-          isLoading={status === 'loading'}
-          initialValue={savedCity}
-        />
+        <SearchBar onSearch={search} isLoading={status === "loading"} initialValue={savedCity} />
 
         <div className="app-content">
-          {status === 'idle' && (
+          {status === "idle" && (
             <div className="idle-state">
-              <span className="idle-emoji" aria-hidden="true">🌍</span>
+              <span className="idle-emoji" aria-hidden="true">
+                🌍
+              </span>
               <p>Busca una ciudad para ver su pronóstico del tiempo</p>
             </div>
           )}
 
-          {status === 'loading' && <LoadingSpinner />}
+          {status === "loading" && <LoadingSpinner />}
 
-          {status === 'error' && error && <ErrorMessage message={error} />}
+          {status === "error" && error && <ErrorMessage message={error} />}
 
-          {status === 'success' && data && (
+          {status === "success" && data && (
             <>
               <CurrentWeather data={data} />
               <WeatherForecast daily={data.daily} />

@@ -5,7 +5,9 @@ interface Props {
 export function ErrorMessage({ message }: Props) {
   return (
     <div className="error-state" role="alert">
-      <span className="error-icon" aria-hidden="true">⚠️</span>
+      <span className="error-icon" aria-hidden="true">
+        ⚠️
+      </span>
       <p className="error-message">{message}</p>
     </div>
   );
